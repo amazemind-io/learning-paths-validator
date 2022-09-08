@@ -41,7 +41,7 @@ func (t *Topic) Validate() {
 	for _, res := range t.Resources {
 		if res.Type != "video" && res.Type != "blogpost" && res.Type != "bookchapter" {
 			log.Fatalf("Invalid resource type %v at topic %v", res.Type, t.Id)
-		} 
+		}
 	}
 }
 
@@ -162,11 +162,12 @@ type Chapter struct {
 }
 
 type Path struct {
-	Version  string     `json:"version"`
-	Name     string     `json:"name"`
-	Id       string     `json:"id"`
-	Level    string     `json:"level"`
-	Chapters []*Chapter `json:"chapters"`
+	Version     string     `json:"version"`
+	Name        string     `json:"name"`
+	Id          string     `json:"id"`
+	Level       string     `json:"level"`
+	Description string     `json:"description"`
+	Chapters    []*Chapter `json:"chapters"`
 }
 
 func (path *Path) ReadPath(path_file string) {
