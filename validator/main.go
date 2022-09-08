@@ -13,13 +13,20 @@ var topics map[string]Topic
 var path_ids_global map[string]int
 var steps map[string]Step
 
+type Resource struct {
+	Name string `json:"name"`
+	Link string `json:"json"`
+	Type string `json:"type"`
+}
+
 type Topic struct {
-	Id           string   `json:"id"`
-	Name         string   `json:"name"`
-	Level        string   `json:"level"`
-	Tags         []string `json:"tags"`
-	Description  string   `json:"description"`
-	Dependencies []string `json:"dependencies"`
+	Id           string     `json:"id"`
+	Name         string     `json:"name"`
+	Level        string     `json:"level"`
+	Tags         []string   `json:"tags"`
+	Description  string     `json:"description"`
+	Dependencies []string   `json:"dependencies"`
+	Resources    []Resource `json:"resources"`
 }
 
 func (t *Topic) Validate() {
@@ -30,6 +37,11 @@ func (t *Topic) Validate() {
 		if ids_global[dep] != 1 {
 			log.Fatalf("Failed to resolve dependency id: %v at topic id: %v", dep, t.Id)
 		}
+	}
+	for _, res := range t.Resources {
+		if res.Type != "video" && res.Type != "blogpost" && res.Type != "bookchapter" {
+			log.Fatalf("Invalid resource type %v at topic %v", res.Type, t.Id)
+		} 
 	}
 }
 
