@@ -15,7 +15,7 @@ var steps map[string]Step
 
 type Resource struct {
 	Name string `json:"name"`
-	Link string `json:"json"`
+	Link string `json:"link"`
 	Type string `json:"type"`
 }
 
